@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    #counters {
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+      list-style: none;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    #counters li {
+      border: black 1px solid;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .counter {
+      text-align: center;
+      grid-column: 1 / span 2;
+    }
+
+    .increase {
+      background-color: red;
+      color: white;
+      padding: 1rem 2rem;
+
+    }
+
+    .decrease {
+      background-color: blue;
+      color: white;
+      padding: 1rem 2rem;
+
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <button onclick="addCounter()">Add a counter</button>
+
+    <ul id="counters"></ul>
+  </main>
+
+  <script>
+    const countersContainer = document.getElementById("counters")
+
+
+    const counters = []
+
+    function increaseCounter(index) {
+      counters[index]++;
+
+      const counter = document.getElementById(index)
+      counter.textContent = counters[index]
+    }
+
+    function decreaseCounter(index) {
+      counters[index]--;
+      const counter = document.getElementById(index)
+      counter.textContent = counters[index]
+    }
+
+    function addCounter() {
+      const index = counters.length
+      counters.push(0)
+
+      const li = document.createElement("li")
+
+      const increase = document.createElement("button")
+      increase.textContent = "Increase"
+      increase.addEventListener("click", () => {
+        increaseCounter(index)
+      })
+      increase.className = "increase"
+
+
+      const decrease = document.createElement("button")
+      decrease.textContent = "decrease"
+      decrease.addEventListener("click", () => {
+        decreaseCounter(index)
+      })
+      decrease.className = "decrease"
+
+      const counter = document.createElement("span")
+      counter.id = `${index}`
+      counter.textContent = 0
+      counter.className = "counter"
+
+
+      li.appendChild(counter)
+      li.appendChild(decrease)
+      li.appendChild(increase)
+
+      countersContainer.appendChild(li)
+    }
+  </script>
+</body>
+
+</html>
